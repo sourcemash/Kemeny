@@ -1,4 +1,7 @@
-# John G. Kemeny Computing Prize (2015)
+Kemeny Computing Prize (2015)
+------------------------------
+
+[Sourcemash] (https://github.com/sourcemash/Sourcemash) project report
 
 The John G. Kemeny Computing Prize is awarded annually for innovative computing projects by Dartmouth undergraduates. In addition to public recognition of excellence in computing, it also carries a cash award.
 
