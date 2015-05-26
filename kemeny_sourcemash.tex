@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+\title{\textbf{Sourcemash \footnote{This paper constitutes the final project for the Fall 2013 iteration of CS 55: Security and Privacy, taught by Charles C. Palmer, Adjunct Professor of Computer Science, Dartmouth College; CTO Security and Privacy, IBM Research.}}}
+\author{
+	Alex Gerstein \\ Dartmouth College\\ Computer Science \\ \texttt{alex.gerstein@dartmouth.edu} 
+	\\ \\
+	Scott Gladstone \\ Dartmouth College\\ Computer Science, Economics\\ \texttt{scott.gladstone@dartmouth.edu}
+	}
+\date{\today}
+
+\usepackage[margin=1.0in]{geometry}
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[superscript,biblabel]{cite}
+\usepackage{url}
+
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+In our final project, we investigated student perceptions and use of the BitTorrent peer-to-peer (P2P) file-sharing protocol at Dartmouth College. After a general overview of the protocol, potential legal implications, and security flaws present, we surveyed students and spoke to Adam Goldstein at Dartmouth College Computing Services in order to better understand the disparity between the perception and actual use of torrenting by students. Using the results from the survey and network bandwidth data obtained from Computing Services, we observed several notable sources of disconnect between student perceptions and incidences of torrenting. These disparities include a perception by students that the average Dartmouth student torrents more then than the student participants actually reported, the observation that the number of DMCA complaints far understates the number of students who illegally torrent, and the fact that BitTorrent is still the most utilized file-sharing service at Dartmouth College despite the rise of alternative forms of media management such as video- and audio-streaming services like Netflix and Spotify. This paper outlines the goals, methods, and results of our study and discusses potential policy recommendations for the College in order to curb illegal torrenting and reduce the vulnerability of the Dartmouth College network to torrent-related exploits.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% ********			INTRODUCTION  		******** %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagebreak
+\begin{multicols}{2}
+\section{Introduction}
+
+BitTorrent 
+
+\subsection{Peer-to-Peer (P2P) File Sharing}
+
+P2P 
+
+\subsection{BitTorrent Protocol}
+
+BitTorrent i
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% ********			LEGAL ISSUES  		******** %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Legal Issues \& Security Implications}
+
+While 
+
+\subsection{Security Implications for Individuals and Network Hosts}
+
+When \cite{mediadefender}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% ********		ACKNOWLEDGEMENTS  	******** %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Acknowledgments}
+Charles Palmer provided guidance in the direction of this research and helped to connect the authors with security specialists at Dartmouth College Computing Services. Adam Goldstein from Dartmouth College Computing Services engaged in useful discussion with the authors and provided key data about Dartmouth network patterns and BitTorrent usage, without which this research could not have been completed.
+\end{multicols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% ********			  REFERENCES  		******** %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+
+\begin{thebibliography}{99}
+
+\bibitem{mediadefender} Kravets, David. "MediaDefender Defends Revision3 SYN Attack." \emph{Wired}. May 31, 2008. Accessed November 14, 2013. Available at http://www.wired.com/threatlevel/2008/05/mediadefender-d/.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,5 @@
+# Unnecessary file types
+*.pdf
+*.aux
+*.log
+*.gz
