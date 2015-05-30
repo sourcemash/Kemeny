@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \title{\includegraphics[scale=0.65]{solologo} \\~\\ \includegraphics[scale=0.75]{logotext} \\~\\ Kemeny Prize Application 2015}
 \author{
-	Alex Gerstein \\ Dartmouth College '15 \\ Computer Science \\ \texttt{alex.s.gerstein.15@dartmouth.edu} 
+	Alex Gerstein \\ Dartmouth College '15 \\ Computer Science \\ \texttt{alex.s.gerstein.15@dartmouth.edu}
 	\\ \\
 	Scott Gladstone \\ Dartmouth College '15 \\ Computer Science \\ \texttt{scott.w.gladstone.15@dartmouth.edu}
 	}
@@ -35,7 +35,7 @@
 \pagebreak
 \section{Project Overview}
 
-Sourcemash 
+Sourcemash
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% ********		  USER INSTRUCTIONS  		******** %%%%%
@@ -43,7 +43,7 @@ Sourcemash
 
 \section{User Instructions}
 
-While 
+While
 
 \subsection{Production: www.sourcemash.com}
 
@@ -59,15 +59,41 @@ When
 
 \section{Technical Description}
 
-While 
+Sourcemash was built to be used as an RSS feed reader, but at its core is a categorization algorithm. We will break down the technical description into these two components: the categorization algorithm and the RSS reader that incorporates the algorithm to allow users to get parse through the news faster.
 
-\subsection{Subsection 1}
+\subsection{Categorization Algorithm}
 
-When
+Because we need articles to group together by category, it was import that our categorization algorithm generate categories with a decent number of overlapping categories. In addition, it was important that the algorithm work quickly because it would need to process many articles 24/7 to stay up-to-date with the latest news.
 
-\subsection{Subsection 2}
+To help with the first concern, we needed a way to normalize our category data. This meant that capitalization, punctuation, and pluralization should all be consistent for each instance of a given category. Upon researching state-of-the-art categorization techniques, we came across the CommunityCluster algorithm\cite{Grineva}, which uses Wikipedia lookups to generate possible keywords from an article. By using Wikipedia articles, categories would be normalized by converting n-grams from a source article into official Wikipedia article titles.
 
-When
+For the second concern, we sped up the CommunityCluster algorithm by only running it on the n-most-common ngrams in each feed article. This would require less lookups using the Wikipedia API.
+
+The CommunityCluster algorithm computes relatedness between two wikipedia articles by counting the number of overlapping links between two articles per total number of links. This relatedness score becomes the edge weight between the articles. Once all articles and their edges are added the graph, the graph generates clusters and picks out the densest clusters as the selected keywords.
+
+In the end, our algorithm works as follows:
+
+\begin{enumerate}
+
+\item Generate bag-o-words for article (a), weighting counts for n-grams from the title or longer than a unigram more heavily.
+\item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates.
+\item For each keyword candidate (c), search Wikipedia for whether (c) exists as a wikipedia article (w).
+  \begin{enumerate}
+  \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the article to all related (w) linked to from the disambiguation page.
+  \item Otherwise, map (c) to itself as the only (w).
+  \end{enumerate}
+\item Memoize the cross-wiki links in each (w) to quickly compute relatedness scores later.
+\item For each (c) that only mapped to one (w), store (w) in the list of assigned articles.
+\item For each ambiguous (c), sum the relatedness scores between each (w) and the list of assigned articles in Step 5. Add (w) with the greatest summed relatedness score to the list of assigned articles.
+\item Generate the graph (g), where each (w) in the assigned articles list is a vertex and the relatedness between itself and another article is the edge weight.
+\item Perform the Louvain method to isolate the communities in (G).
+\item Extract the densest communities' keywords to be used as the keywords for (a).
+\end{enumerate}
+
+
+\subsection{RSS Reader}
+
+The site is built as a RESTful API written in Flask for the backend, and a single-page app built in Backbone.js for the frontend. A redis server runs in the background to asynchronously schedule all emails and other worker tasks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% ********      		EVALUATION 			******** %%%%%
@@ -75,7 +101,7 @@ When
 
 \section{Evaluation}
 
-While 
+While
 
 \subsection{Criteria}
 
@@ -94,4 +120,11 @@ When
 Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key guidance in the direction of Sourcemash's development throughout the duration of CS 98: Senior Design and Implementation Project. Michael Evans and Sravana Reddy, Neukom Fellows from the Neukom Institute at Dartmouth College, engaged in useful discussion with the authors and provided plentiful advice and feedback, without which Sourcemash could not have achieved such success.
 
 %\end{multicols}
+
+\begin{thebibliography}{99}
+
+\bibitem{Grineva}
+  M. Grineva, M. Grinev and D. Lizorkin, ``Extracting key terms from noisy and multi-theme documents.'' \emph{Proceedings of the 18th international conference on World wide web}. ACM, 2009.
+\end{thebibliography}
+
 \end{document}
