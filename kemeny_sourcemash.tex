@@ -82,7 +82,7 @@ Instructions for installation, execution, and testing are maintained at \url{htt
 			\item In another terminal session,
 			\begin{enumerate}
 				\item Start up a redis server: \texttt{redis-server \&}
-				\item Start up an instance of the worker: \texttt{python manage.py worker \&}
+				\item Start up an instance of the worker: \texttt{python manage.py scrape_worker \& python manage.py user_tasks_worker \&}
 			\end{enumerate}
 			\item Start up the scraper: \texttt{python manage.py scrape}
 		\end{enumerate}
