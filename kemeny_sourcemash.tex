@@ -61,7 +61,7 @@ The navigation menu, pinned to the left side of the page, is the primary tool us
 
 \subsection{Development}
 
-Instructions for installation, execution, and testing are maintained at \url{https://github.com/sourcemash/Sourcemash/blob/master/README.md}, and are reproduced as of \today\ below.
+Instructions for installation, execution, and testing are maintained at \url{https://github.com/sourcemash/Sourcemash/blob/master/README.md}, and are reproduced as of \today\ below. Sourcemash runs on Mac OS X and the Linux computers (recommended: \texttt{darwin}) available in Sudikoff 001.
 
 \begin{enumerate}
 	\item Installation
@@ -69,7 +69,7 @@ Instructions for installation, execution, and testing are maintained at \url{htt
 			\item Clone repo to computer (e.g. \texttt{git clone https://github.com/sourcemash/Sourcemash.git})
 			\item Install postgresql (e.g. \texttt{brew install postgresql})
 			\item Install redis (e.g. \texttt{brew install redis})
-			\item Install all requirements from \texttt{requirements.txt} in a virtual environment
+			\item Install all requirements from \texttt{requirements.txt} in a virtual environment:
 			\begin{enumerate}
 				\item Create a virtual environment: \texttt{virtualenv flask}
 				\item Install requirements: \texttt{flask/bin/pip install -r requirements.txt}
@@ -82,9 +82,10 @@ Instructions for installation, execution, and testing are maintained at \url{htt
 			\item In another terminal session,
 			\begin{enumerate}
 				\item Start up a redis server: \texttt{redis-server \&}
-				\item Start up an instance of the worker: \texttt{python manage.py scrape_worker \& python manage.py user_tasks_worker \&}
+				\item Start up an instance of the worker: \texttt{python manage.py scrape\_worker \& python manage.py user\_tasks\_worker \&}
 			\end{enumerate}
 			\item Start up the scraper: \texttt{python manage.py scrape}
+			\item Open Sourcemash in your preferred browser on localhost (default port: 5000)
 		\end{enumerate}
 	\item Testing
 	\begin{enumerate}
