@@ -84,22 +84,22 @@ The current implementation of the categorization algorithm works as follows:
 
 \begin{enumerate}
 
-\item Generate bag-o-words for article $a$, weighting counts for ngrams from the article title and longer phrases (e.g. bigrams, trigrams) more heavily.
+\item Generate a bag-o-words for article $a$, weighting counts for ngrams from the article title and longer phrases (e.g. bigrams, trigrams) more heavily.
 \item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates.
 \item For each keyword candidate $c$:
   \begin{enumerate}
   	\item Search Wikipedia for whether $c$ exists as an article $w$.
   	\begin{enumerate}
- 		 \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the article to all related $w'$ linked to from the disambiguation page.
-  		\item Otherwise, map $c$ to the unambiguous article $w$.
+ 		 \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the keyword $c$ to all related Wikipedia articles linked to from the disambiguation page, denoted $W' = \{w'_{1}, w'_{2}, ...\}$.
+  		\item Otherwise, map $c$ to the unambiguous Wikipedia article $w$.
   	\end{enumerate}
-	\item Memoize the cross-Wiki links in $w$ to quickly compute relatedness scores later.
+	\item Memoize the cross-Wiki links in $w$ (or in all $w' \in W'$) to quickly compute relatedness scores later.
   \end{enumerate}
-\item For each $c$ that only mapped to one $w$, store $w$ in $c$'s list of assigned articles $A$.
-\item For each ambiguous $c_{m}$, sum the relatedness scores between each $w'$ mapped to $c_m$ and the list of assigned articles $A$ from Step 5. Append the $w'$ with the greatest summed relatedness score to the list of assigned articles $A$.
-\item Generate the graph $G$, where each $w \in A$ is a vertex and the edge weight $e_{ww'}$ is the relatedness score between articles $w$ and $w'$.
-\item Perform the Louvain method to isolate the communities in $G$.
-\item Extract the densest communities' keywords to be used as the keywords for article $a$.
+\item For each $c$ that mapped to one unambiguous $w$, store $w$ in the list of assigned Wikipedia articles for the article $a$, denoted $A$.
+\item For each $c'$ that mapped to an ambiguous set $W'$, sum the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4. Append the $w'$ with the greatest summed relatedness score to the list of assigned articles $A$.
+\item Generate the graph $G$, where each $w \in A$ is a vertex and the edge weight $|e_{ww'}|$ is the relatedness score between articles $w$ and $w'$.
+\item Perform the Louvain method for community detection\cite{Blondel} to isolate the communities in $G$.
+\item Extract the densest communities' keywords to be used as the categories for article $a$.
 \end{enumerate}
 
 To test the categorizer on any online article, go to \url{sourcemash.com/categorizer}.
@@ -138,10 +138,12 @@ Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key 
 
 \bibitem{Materialize}
   ``Materialize: A modern responsive front-end framework based on Material Design.'' Available at \url{http://materializecss.com/}. MIT, 2015.
-  
+
 \bibitem{Grineva}
   M. Grineva, M. Grinev and D. Lizorkin, ``Extracting key terms from noisy and multi-theme documents.'' \emph{Proceedings of the 18th international conference on World wide web}. ACM, 2009.
   
+\bibitem{Blondel} Blondel, V.~D., Guillaume, J.-L., Lambiotte, R., \& Lefebvre, E.``Fast unfolding of communities in large networks.'' \emph{Journal of Statistical Mechanics: Theory and Experiment} 10(8), 2008.
+
 \end{thebibliography}
 
 \end{document}
