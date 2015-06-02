@@ -84,19 +84,22 @@ The current implementation of the categorization algorithm works as follows:
 
 \begin{enumerate}
 
-\item Generate bag-o-words for article (a), weighting counts for n-grams from the title or longer than a unigram more heavily.
+\item Generate bag-o-words for article $a$, weighting counts for ngrams from the article title and longer phrases (e.g. bigrams, trigrams) more heavily.
 \item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates.
-\item For each keyword candidate (c), search Wikipedia for whether (c) exists as a wikipedia article (w).
+\item For each keyword candidate $c$:
   \begin{enumerate}
-  \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the article to all related (w) linked to from the disambiguation page.
-  \item Otherwise, map (c) to itself as the only (w).
+  	\item Search Wikipedia for whether $c$ exists as an article $w$.
+  	\begin{enumerate}
+ 		 \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the article to all related $w'$ linked to from the disambiguation page.
+  		\item Otherwise, map $c$ to the unambiguous article $w$.
+  	\end{enumerate}
+	\item Memoize the cross-Wiki links in $w$ to quickly compute relatedness scores later.
   \end{enumerate}
-\item Memoize the cross-wiki links in each (w) to quickly compute relatedness scores later.
-\item For each (c) that only mapped to one (w), store (w) in the list of assigned articles.
-\item For each ambiguous (c), sum the relatedness scores between each (w) and the list of assigned articles in Step 5. Add (w) with the greatest summed relatedness score to the list of assigned articles.
-\item Generate the graph (g), where each (w) in the assigned articles list is a vertex and the relatedness between itself and another article is the edge weight.
-\item Perform the Louvain method to isolate the communities in (G).
-\item Extract the densest communities' keywords to be used as the keywords for (a).
+\item For each $c$ that only mapped to one $w$, store $w$ in $c$'s list of assigned articles $A$.
+\item For each ambiguous $c_{m}$, sum the relatedness scores between each $w'$ mapped to $c_m$ and the list of assigned articles $A$ from Step 5. Append the $w'$ with the greatest summed relatedness score to the list of assigned articles $A$.
+\item Generate the graph $G$, where each $w \in A$ is a vertex and the edge weight $e_{ww'}$ is the relatedness score between articles $w$ and $w'$.
+\item Perform the Louvain method to isolate the communities in $G$.
+\item Extract the densest communities' keywords to be used as the keywords for article $a$.
 \end{enumerate}
 
 To test the categorizer on any online article, go to \url{sourcemash.com/categorizer}.
