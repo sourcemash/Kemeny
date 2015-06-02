@@ -43,15 +43,24 @@ Sourcemash
 
 \section{User Instructions}
 
-While
+Sourcemash is a web application, located at \url{www.sourcemash.com}. The source code for Sourcemash is available at \url{https://github.com/sourcemash/Sourcemash}.
 
-\subsection{Production: www.sourcemash.com}
+\subsection{Production}
 
-When
+Users are encouraged to use the production release of Sourcemash available at \url{www.sourcemash.com}. The website uses a Material Design framework\cite{Materialize} to create an easy-to-navigate, responsive user experience. The navigation menu, pinned to the left side of the page, is the primary tool used to access the site's core features and pages, which are explained in detail below:
 
-\subsection{Development: localhost}
+\begin{itemize}
+	\item \textbf{Browse} (\url{sourcemash.com/browse}): The Browse page contains an offering of feeds that users can subscribe to. If users do not see a feed that they wish to add, they may add their own using the form at the top of the page.
+	\item \textbf{Categorizer} (\url{sourcemash.com/categorizer}): This page offers standalone access to the Sourcemash categorization engine. The categorizer allows users to input the URL of any online article and receive auto-generated categories based on our categorization algorithm.
+	\item \textbf{Category or Feed View} (e.g. \url{sourcemash.com/feeds/1}): By clicking on a Category or Feed title under the tabs in the left-pinned navigation menu, users can view and interact with all items present in that category or feed.
+	\item \textbf{Saved} (\url{sourcemash.com/saved}): Authenticated users can find the list of items that they have bookmarked here.
+	\item \textbf{Profile} (\url{sourcemash.com/profile}): Authenticated users can manage their settings here. For example, Sourcemash offers a "Show Suggested Content" feature that will display one additional article inside a category page from a feed that a user is not subscribed to. This helps introduce users to new feeds.
+\end{itemize}
 
-When
+\subsection{Development}
+
+Instructions for installation, execution, and testing are maintained at \url{https://github.com/sourcemash/Sourcemash/blob/master/README.md}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% ********      TECHNICAL DESCRIPTION 	******** %%%%%
@@ -90,7 +99,7 @@ The current implementation of the categorization algorithm works as follows:
 \item Extract the densest communities' keywords to be used as the keywords for (a).
 \end{enumerate}
 
-To test the categorizer on any webpage, go to \url{sourcemash.com/categorizer}.
+To test the categorizer on any online article, go to \url{sourcemash.com/categorizer}.
 
 \subsection{RSS Reader}
 
@@ -118,14 +127,18 @@ When
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Acknowledgments}
-Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key guidance in the direction of Sourcemash's development throughout the duration of CS 98: Senior Design and Implementation Project. Michael Evans and Sravana Reddy, Neukom Fellows from the Neukom Institute at Dartmouth College, engaged in useful discussion with the authors and provided plentiful advice and feedback, without which Sourcemash could not have achieved such success.
+Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key guidance in the direction of Sourcemash's development throughout the duration of CS 98: Senior Design and Implementation Project. Michael Evans and Sravana Reddy, Neukom Fellows from the Neukom Institute at Dartmouth College, engaged in useful discussion with the authors and provided plentiful advice and feedback. Without their support, Sourcemash could not have achieved such success.
 
 %\end{multicols}
 
 \begin{thebibliography}{99}
 
+\bibitem{Materialize}
+  ``Materialize: A modern responsive front-end framework based on Material Design.'' Available at \url{http://materializecss.com/}. MIT, 2015.
+  
 \bibitem{Grineva}
   M. Grineva, M. Grinev and D. Lizorkin, ``Extracting key terms from noisy and multi-theme documents.'' \emph{Proceedings of the 18th international conference on World wide web}. ACM, 2009.
+  
 \end{thebibliography}
 
 \end{document}
