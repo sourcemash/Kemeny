@@ -84,16 +84,16 @@ The current implementation of the categorization algorithm works as follows:
 
 \begin{enumerate}
 
-\item Generate a bag-o-words for article $a$, weighting counts for ngrams from the article title and longer phrases (e.g. bigrams, trigrams) more heavily.
-\item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates.
-\item For each keyword candidate $c$:
+\item Generate a bag-o-words for article $a$, overweighting counts for ngrams from the article title and longer phrases (e.g. bigrams, trigrams).
+\item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates $C$.
+\item For each keyword candidate $c \in C$:
   \begin{enumerate}
-  	\item Search Wikipedia for whether $c$ exists as an article $w$.
+  	\item Search Wikipedia for whether $c$ exists as an article title $w$.
   	\begin{enumerate}
- 		 \item If the article exists but is ambiguous (i.e. has a Wiki disambiguation page), map the keyword $c$ to all related Wikipedia articles linked to from the disambiguation page, denoted $W' = \{w'_{1}, w'_{2}, ...\}$.
+ 		 \item If $w$ exists but is ambiguous (i.e. has a Wiki disambiguation page), map the keyword $c$ to all related Wikipedia articles linked to from the disambiguation page, denoted $W' = \{w'_{1}, w'_{2}, ...\}$.
   		\item Otherwise, map $c$ to the unambiguous Wikipedia article $w$.
   	\end{enumerate}
-	\item Memoize the cross-Wiki links in $w$ (or in all $w' \in W'$) to quickly compute relatedness scores later.
+	\item Memoize the hyperlinks in $w$ (or in all $w' \in W'$) to quickly compute relatedness scores later.
   \end{enumerate}
 \item For each $c$ that mapped to one unambiguous $w$, store $w$ in the list of assigned Wikipedia articles for the article $a$, denoted $A$.
 \item For each $c'$ that mapped to an ambiguous set $W'$, sum the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4. Append the $w'$ with the greatest summed relatedness score to the list of assigned articles $A$.
