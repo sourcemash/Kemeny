@@ -43,55 +43,24 @@ Sourcemash
 
 \section{User Instructions}
 
-Sourcemash is a web application that is hosted online at \url{www.sourcemash.com}. The current development release is available at \url{staging.sourcemash.com}, and the source code for Sourcemash is available at \url{https://github.com/sourcemash/Sourcemash}. Instructions for installation, execution, and testing in the local environment are included in the README and in §2.2 below.
+Sourcemash is a web application, located at \url{www.sourcemash.com}. The source code for Sourcemash is available at \url{https://github.com/sourcemash/Sourcemash}.
 
 \subsection{Production}
 
-Users are encouraged to use the production release of Sourcemash available at \url{www.sourcemash.com}. The website uses Material Design techniques to create an easy-to-navigate, responsive user experience. Users are encouraged to sign up or log in to take advantages of all of the features that Sourcemash has to offer, and a continuously available help menu is available by pressing the ``?'' button in the bottom right corner of every page.
-
-The navigation menu, pinned to the left side of the page, is the primary tool used to access features and pages on the site, which are delineated below:
+Users are encouraged to use the production release of Sourcemash available at \url{www.sourcemash.com}. The website uses a Material Design framework\cite{Materialize} to create an easy-to-navigate, responsive user experience. The navigation menu, pinned to the left side of the page, is the primary tool used to access the site's core features and pages, which are explained in detail below:
 
 \begin{itemize}
-	\item \textbf{Browse} (\url{sourcemash.com/browse}): The Browse page contains an offering of feeds that users can choose to subscribe to. If users do not see a feed that they wish to add, they may add their own using the form at the top of the page.
-	\item \textbf{Categorizer} (\url{sourcemash.com/categorizer}): This page offers try-it-yourself access to the Sourcemash categorization engine. The categorizer allows users to input the URL of any online article and returns auto-generated categories based on computational linguistic analysis.
-	\item \textbf{Category or Feed View} (e.g. \url{sourcemash.com/feeds/1}): By clicking on a Category or Feed title under the tabs in the left-pinned navigation menu, users can view all items present in that category or feed and interact with content by up/down-voting and saving items.
+	\item \textbf{Browse} (\url{sourcemash.com/browse}): The Browse page contains an offering of feeds that users can subscribe to. If users do not see a feed that they wish to add, they may add their own using the form at the top of the page.
+	\item \textbf{Categorizer} (\url{sourcemash.com/categorizer}): This page offers standalone access to the Sourcemash categorization engine. The categorizer allows users to input the URL of any online article and returns auto-generated categories based on our categorization algorithm.
+	\item \textbf{Category or Feed View} (e.g. \url{sourcemash.com/feeds/1}): By clicking on a Category or Feed title under the tabs in the left-pinned navigation menu, users can view and interact with all items present in that category or feed.
 	\item \textbf{Saved} (\url{sourcemash.com/saved}): Authenticated users can find the list of items that they have bookmarked here.
-	\item \textbf{Profile} (\url{sourcemash.com/profile}): Authenticated users can toggle a ``Suggested Content'' feature here, whereby Sourcemash will display unsubscribed content to a user in order to introduce him or her to recommended, similar content. For example, if users are subscribed to the \emph{New York Times} and are currently viewing a category titled ``Apple Watch,'' they may also be introduced to articles about the Apple Watch from other sources such as TechCrunch, Macrumors, or Bloomberg, if this feature is enabled.
+	\item \textbf{Profile} (\url{sourcemash.com/profile}): Authenticated users can manage their settings here. For example, Sourcemash offers a "Show Suggested Content" feature that will display one additional article inside a category page from a feed that a user is not subscribed to. This helps introduce users to new feeds.
 \end{itemize}
 
 \subsection{Development}
 
-Instructions for installation, execution, and testing are maintained at \url{https://github.com/sourcemash/Sourcemash/blob/master/README.md}, and are reproduced as of \today\ below. Sourcemash runs on Mac OS X and the Linux computers (recommended: \texttt{darwin}) available in Sudikoff 001.
+Instructions for installation, execution, and testing are maintained at \url{https://github.com/sourcemash/Sourcemash/blob/master/README.md}.
 
-\begin{enumerate}
-	\item Installation
-		\begin{enumerate}
-			\item Clone repo to computer (e.g. \texttt{git clone https://github.com/sourcemash/Sourcemash.git})
-			\item Install postgresql (e.g. \texttt{brew install postgresql})
-			\item Install redis (e.g. \texttt{brew install redis})
-			\item Install all requirements from \texttt{requirements.txt} in a virtual environment:
-			\begin{enumerate}
-				\item Create a virtual environment: \texttt{virtualenv flask}
-				\item Install requirements: \texttt{flask/bin/pip install -r requirements.txt}
-				\item Activate virtual environment: \texttt{.\ flask/bin/activate}
-			\end{enumerate}
-		\end{enumerate}
-	\item Run Locally
-		\begin{enumerate}
-			\item Start up a local server: \texttt{python manage.py server}
-			\item In another terminal session,
-			\begin{enumerate}
-				\item Start up a redis server: \texttt{redis-server \&}
-				\item Start up an instance of the worker: \texttt{python manage.py scrape\_worker \& python manage.py user\_tasks\_worker \&}
-			\end{enumerate}
-			\item Start up the scraper: \texttt{python manage.py scrape}
-			\item Open Sourcemash in your preferred browser on localhost (default port: 5000)
-		\end{enumerate}
-	\item Testing
-	\begin{enumerate}
-		\item To run the unit tests, run \texttt{python manage.py test}.
-	\end{enumerate}
-\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% ********      TECHNICAL DESCRIPTION 	******** %%%%%
@@ -164,8 +133,12 @@ Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key 
 
 \begin{thebibliography}{99}
 
+\bibitem{Materialize}
+  ``Materialize: A modern responsive front-end framework based on Material Design.'' Available at \url{http://materializecss.com/}. MIT, 2015.
+  
 \bibitem{Grineva}
   M. Grineva, M. Grinev and D. Lizorkin, ``Extracting key terms from noisy and multi-theme documents.'' \emph{Proceedings of the 18th international conference on World wide web}. ACM, 2009.
+  
 \end{thebibliography}
 
 \end{document}
