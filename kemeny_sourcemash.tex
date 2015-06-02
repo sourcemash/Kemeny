@@ -96,7 +96,7 @@ The current implementation of the categorization algorithm works as follows:
 	\item Memoize the hyperlinks in $w$ (or in all $w' \in W'$) to quickly compute relatedness scores later.
   \end{enumerate}
 \item For each $c$ that mapped to one unambiguous $w$, store $w$ in the list of assigned Wikipedia articles for the article $a$, denoted $A$.
-\item For each $c'$ that mapped to an ambiguous set $W'$, sum the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4. Append the $w'$ with the greatest summed relatedness score to the list of assigned articles $A$.
+\item For each $c'$ that mapped to an ambiguous set $W'$, disambiguate $W'$ by summing the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4 and appending $w'$ with the max total relatedness score to the list of assigned articles $A$.
 \item Generate the graph $G$, where each $w \in A$ is a vertex and the edge weight $|e_{ww'}|$ is the relatedness score between articles $w$ and $w'$.
 \item Perform the Louvain method for community detection\cite{Blondel} to isolate the communities in $G$.
 \item Extract the densest communities' keywords to be used as the categories for article $a$.
