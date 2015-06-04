@@ -114,12 +114,14 @@ The site is built as a RESTful API written in Flask, a Python web microframework
 
 \section{Evaluation}
 
-While other solutions exist to group related articles, only Sourcemash allows users to choose their own sources. Sourcemash is the first and only RSS feed reader that categorizes at the article-level to reorganize your news. This unique feature makes it stand out from competing RSS feed readers, such as Feedly.
+While other solutions exist to group and categorize related articles, only Sourcemash allows users to choose their own sources. Sourcemash is the first and only RSS feed reader that categorizes at the article-level to reorganize your news. This unique feature makes it stand out from competing RSS feed readers, such as Feedly.
 
-\subsection{Criteria}
-The categorization often finds the top categories for an article. However, it faces some issues with adding poor additional categorizations. The clustering approach does a good job at eliminating completely unrelated categories, but poor disambiguated words sometimes pass the relatedness metric. When this occurs, we add extra processing to hide poor results from the user. For example, we only display categories that have more than a set number of matching articles. This helps remove the rarer categories.
+\subsection{Accuracy}
+While the categorization algorithm often finds accurate ``top'' categories for an article, it faces some issues with adding poor additional categorizations from close communities. For example, for a CNN article titled ``Deadliest outbreak of Ebola virus: What you need to know''\cite{Ebola}, the accurate categories ``Ebola'', ``Virus'', ``Peace Crops'', ``Liberia'' and ``Sierra Leone'' are returned along with innacurate categories ``Gary Sick''and ``Tornado outbreak''. These poor categorizations likely derive from incorrectly disambiguated versions of words such as ``sick'' or ``natural disaster'' that are present in the article. 
 
-To maintain a level of specificity in the categories, we also ignore any categories that are contained within other categories. For example, the categorizer would choose ``Google Maps'' as a category over ``Google''.
+As observed by Grineva, Grinev and Lizorkin\cite{Grineva}, the community-clustering approach is approximately 60-70\% effective at eliminating completely unrelated categories, but inaccurately disambiguated words sometimes pass the relatedness metric. When this occurs, Sourcemash post-processes generated categories to hide poor results from the user. For example, Sourcemash only displays categories that have a sufficient number of matching articles; this helps remove the rarer, often incorrectly selected, categories. With Sourcemash, we have found a similar accuracy ratio in selected categories as Grineva's team (e.g. 5 of 8 [62.5\%] of the categories assigned to the CNN article\cite{Ebola} referenced above were considered to be ``accurate portrayals of the article'' by surveyed individuals). 
+
+To maintain a level of specificity in the categories, we also ignore any categories that are ``nested'' or contained within other categories. For example, the categorization engine would assign ``Google Maps'' as a category over ``Google,'' if both are present in an article's set of assigned categories.
 
 
 \subsection{Letter of Support: Professor Devin Balkcom}
@@ -145,6 +147,8 @@ Devin Balkcom, Professor of Computer Science at Dartmouth College, provided key 
   M. Grineva, M. Grinev and D. Lizorkin, ``Extracting key terms from noisy and multi-theme documents.'' \emph{Proceedings of the 18th international conference on World wide web}. ACM, 2009.
 
 \bibitem{Blondel} Blondel, V.~D., Guillaume, J.-L., Lambiotte, R., \& Lefebvre, E.``Fast unfolding of communities in large networks.'' \emph{Journal of Statistical Mechanics: Theory and Experiment} 10(8), 2008.
+
+\bibitem{Ebola} http://www.cnn.com/2014/03/27/world/ebola-virus-explainer/
 
 \end{thebibliography}
 
