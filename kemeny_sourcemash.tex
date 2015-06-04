@@ -114,11 +114,13 @@ The site is built as a RESTful API written in Flask, a Python web microframework
 
 \section{Evaluation}
 
-While
+While other solutions exist to group related articles, only Sourcemash allows users to choose their own sources. Sourcemash is the first and only RSS feed reader that categorizes at the article-level to reorganize your news. This unique feature makes it stand out from competing RSS feed readers, such as Feedly.
 
 \subsection{Criteria}
+The categorization often finds the top categories for an article. However, it faces some issues with adding poor additional categorizations. The clustering approach does a good job at eliminating completely unrelated categories, but poor disambiguated words sometimes pass the relatedness metric. When this occurs, we add extra processing to hide poor results from the user. For example, we only display categories that have more than a set number of matching articles. This helps remove the rarer categories.
 
-When
+To maintain a level of specificity in the categories, we also ignore any categories that are contained within other categories. For example, the categorizer would choose ``Google Maps'' as a category over ``Google''.
+
 
 \subsection{Letter of Support: Professor Devin Balkcom}
 
