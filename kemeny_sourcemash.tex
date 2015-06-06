@@ -68,7 +68,7 @@ Instructions for installation, execution, and testing are maintained at \url{htt
 
 \section{Technical Description}
 
-Sourcemash was built to be used as an RSS feed aggregator, but at its core is a news categorization engine. We will break down the application's technical description into two components: the categorization algorithm and the RSS reader that incorporates the algorithm to allow users to parse through their news faster.
+Sourcemash was built to be used as an RSS feed aggregator, but at its core is a text categorization engine. We will break down the application's technical description into two components: the categorization algorithm and the RSS reader that incorporates the algorithm to allow users to parse through their news faster.
 
 \subsection{Categorization Algorithm}
 
@@ -78,7 +78,7 @@ Satisfying the collision requirement required a strategy to normalize our catego
 
 For the efficiency requirement, we increased the speed of the CommunityCluster algorithm by pre-processing article data and running the algorithm on only the n-most-common ngrams in each feed article. This requires less lookups using the Wikipedia API, which is the biggest constraint on the algorithm's runtime.
 
-The CommunityCluster algorithm requires a heuristic to determine the ``relatedness'' between any two Wikipedia articles. The relatedness metric we used relies on the number of overlapping links between Wikipedia articles. On Wikipedia, articles contain inline hyperlinks to related Wikipedia articles. By calculating the percent of hyperlinks that overlap between two Wikipedia articles, we can get a sense of their similarity.
+The CommunityCluster algorithm requires a heuristic to determine the relatedness between any two Wikipedia articles. On Wikipedia, articles contain inline hyperlinks to related Wikipedia articles. The relatedness metric we used relies on the number of overlapping links between Wikipedia articles. By calculating the percent of hyperlinks that overlap between two Wikipedia articles, we can get a sense of their similarity.
 
 The current implementation of the categorization algorithm works as follows:
 
@@ -117,7 +117,7 @@ The site is built as a RESTful API written in Flask, a Python web microframework
 While other solutions exist to group and categorize related articles, only Sourcemash allows users to choose their own sources. Sourcemash is the first and only RSS feed reader that categorizes at the article-level to reorganize your news. This unique feature makes it stand out from competing RSS feed readers, such as Feedly.
 
 \subsection{Accuracy}
-While the categorization algorithm often finds accurate ``top'' categories for an article, it faces some issues with identifying poor secondary categories. For example, for a CNN article titled ``Deadliest outbreak of Ebola virus: What you need to know''\cite{Ebola}, accurate categories \texttt{Ebola, Virus, Peace Corps, Liberia}, and \texttt{Sierra Leone} are returned along with innacurate categories \texttt{Gary Sick, Says}, and \texttt{Tornado outbreak}. These poor categorizations likely derive from incorrect disambiguations of words such as ``sick'' or ``natural disaster'' present in the article. 
+While the categorization algorithm often finds accurate ``top'' categories for an article, it faces some issues with identifying poor secondary categories. For example, for a CNN article titled ``Deadliest outbreak of Ebola virus: What you need to know''\cite{Ebola}, accurate categories \texttt{Ebola Virus Epidemic in West Africa, Virus, Peace Corps, Liberia}, and \texttt{Sierra Leone} are returned along with innacurate categories \texttt{Gary Sick, Says}, and \texttt{Tornado outbreak}. These poor categorizations likely derive from incorrect disambiguations of words such as ``sick'' or ``natural disaster'' present in the article. 
 
 As observed by Grineva, Grinev and Lizorkin\cite{Grineva}, the CommunityCluster algorithm is approximately 60-70\% effective at identifying accurate categories, but incorrectly disambiguated words sometimes pass the relatedness metric. To restrict the appearance of these incorrectly disambiguated words to users, Sourcemash performs additional processing on generated categories. For example, Sourcemash only displays categories that have a sufficient number of matching articles, which helps remove rarer, often incorrectly identified, categories. With Sourcemash, we have found a similar accuracy ratio in selected categories as Grineva's team (e.g. 5 of 8 [62.5\%] of the categories assigned to the CNN article\cite{Ebola} referenced above were considered to be ``accurate portrayals of the article'' by surveyed individuals). 
 
