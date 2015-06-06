@@ -88,15 +88,15 @@ The current implementation of the categorization algorithm works as follows:
 \item From the word counts generated in the bag-o-words, select the 20 most common ngrams as the keyword candidates $C$.
 \item For each keyword candidate $c \in C$:
   \begin{enumerate}
-  	\item Search Wikipedia for whether $c$ exists as an article title $w$.
+  	\item Search Wikipedia for whether $c$ exists as a Wikipedia article $w$.
   	\begin{enumerate}
- 		 \item If $w$ exists but is ambiguous (i.e. has a Wiki disambiguation page), map the keyword $c$ to all related Wikipedia articles linked to from the disambiguation page, denoted $W' = \{w'_{1}, w'_{2}, ...\}$.
+ 		 \item If $w$ exists but is ambiguous (i.e. has a Wikipedia disambiguation page), map the keyword $c$ to all related Wikipedia articles linked to from the disambiguation page, denoted $W' = \{w'_{1}, w'_{2}, ...\}$.
   		\item Otherwise, map $c$ to the unambiguous Wikipedia article $w$.
   	\end{enumerate}
 	\item Memoize the hyperlinks in $w$ (or in all $w' \in W'$) to quickly compute relatedness scores later.
   \end{enumerate}
 \item For each $c$ that mapped to one unambiguous $w$, store $w$ in the list of assigned Wikipedia articles for the article $a$, denoted $A$.
-\item For each $c'$ that mapped to an ambiguous set $W'$, disambiguate $W'$ by summing the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4 and appending $w'$ with the max total relatedness score to the list of assigned articles $A$.
+\item For each $c$ that mapped to an ambiguous set $W'$, disambiguate $W'$ by summing the relatedness scores between each $w' \in W'$ and all articles $w \in A$ from Step 4. Append the $w'$ with the max total relatedness score to the list of assigned articles $A$.
 \item Generate the graph $G$, where each $w \in A$ is a vertex and the edge weight $|e_{ww'}|$ is the relatedness score between articles $w$ and $w'$.
 \item Perform the Louvain method for community detection\cite{Blondel} to isolate the communities in $G$.
 \item Extract the densest communities' keywords to be used as the categories for article $a$.
@@ -122,6 +122,20 @@ While the categorization algorithm often finds accurate ``top'' categories for a
 As observed by Grineva, Grinev and Lizorkin\cite{Grineva}, the CommunityCluster algorithm is approximately 60-70\% effective at identifying accurate categories, but incorrectly disambiguated words sometimes pass the relatedness metric. To restrict the appearance of these incorrectly disambiguated words to users, Sourcemash performs additional processing on generated categories. For example, Sourcemash only displays categories that have a sufficient number of matching articles, which helps remove rarer, often incorrectly identified, categories. With Sourcemash, we have found a similar accuracy ratio in selected categories as Grineva's team (e.g. 5 of 8 [62.5\%] of the categories assigned to the CNN article\cite{Ebola} referenced above were considered to be ``accurate portrayals of the article'' by surveyed individuals). 
 
 To maintain a level of specificity in the categories, we also ignore any categories that are ``nested'' or contained within other categories. For example, the categorization engine would assign ``Google Maps'' as a category over ``Google,'' if both are present in an article's set of assigned categories.
+
+\subsection{Letter of Support: Devin Balkcom, Dartmouth College}
+
+I'm writing in support of Alex Gerstein and Scott Gladstone's submission for the Kemeny Prize: ``Sourcemash.''  Scott and Alex did this work as their CS 98 project. The project was entirely conceived by Scott and Alex, and their work was entirely independent.
+
+Sourcemash is a feed reader that collects articles from several sources, and automatically categorizes them.  The categorization allows users to identify and avoid reading redundant articles, and allows users to explore a particular event or topic more deeply. There does not appear to be any competing software that goes quite so far in this direction. 
+
+The work represents an extremely impressive technical accomplishment. Scott and Alex worked 20-30 hours per week on this project (2-3 times what I asked) from the first day, with a very clear vision of what they wanted to build. Their software engineering skills are far beyond what I have seen in the past several years from other students -- in weekly meetings, they typically reported dozens of resolved issues, all carefully marked through Github tracking. Each new feature was built in parallel with automated tests. 
+
+The project itself is interesting and usable. I do not read many feeds, and so do not have much experience with other feed readers, but the interface seems complete and professional. I'd use it. 
+
+The automated categorization works surprisingly well. After initial attempts at using techniques based on word importance within the provided text, Alex and Scott abandoned this approach, and started to use clustering with external (Wikipedia) articles to find categorizations. There are occasional strange results, but the categorization is good enough to be genuinely useful.
+
+In summary, this is truly excellent work, and I give this project my highest recommendation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
